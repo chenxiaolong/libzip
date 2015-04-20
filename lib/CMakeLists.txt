@@ -1,6 +1,8 @@
 INCLUDE(CheckFunctionExists)
 
-INSTALL(FILES zip.h DESTINATION include)
+IF(LIBZIP_INSTALL)
+  INSTALL(FILES zip.h DESTINATION include)
+ENDIF()
 
 # from http://www.cmake.org/Wiki/CMakeMacroLibtoolFile
 MACRO(GET_TARGET_PROPERTY_WITH_DEFAULT _variable _target _property _default_value)
@@ -48,8 +50,10 @@ MACRO(CREATE_LIBTOOL_FILE _target _install_DIR)
   FILE(APPEND ${_laname} "dlpreopen='${_target_dlpreopen}'\n")
   FILE(APPEND ${_laname} "# Directory that this library needs to be installed in:\n")
   FILE(APPEND ${_laname} "libdir='${CMAKE_INSTALL_PREFIX}/${_install_DIR}'\n")
-  INSTALL( FILES ${_laname} ${_soname}
-    DESTINATION ${CMAKE_INSTALL_PREFIX}${_install_DIR})
+  IF(LIBZIP_INSTALL)
+    INSTALL( FILES ${_laname} ${_soname}
+      DESTINATION ${CMAKE_INSTALL_PREFIX}${_install_DIR})
+  ENDIF()
 ENDMACRO(CREATE_LIBTOOL_FILE)
  
 SET(LIBZIP_SOURCES
@@ -159,7 +163,9 @@ ENDIF(NOT HAVE_MKSTEMP)
 ADD_LIBRARY(zip SHARED ${LIBZIP_SOURCES} ${LIBZIP_EXTRA_FILES})
 SET_TARGET_PROPERTIES(zip PROPERTIES VERSION 3.0 SOVERSION 3 )
 TARGET_LINK_LIBRARIES(zip ${ZLIB_LIBRARY})
-INSTALL(TARGETS zip
-	ARCHIVE DESTINATION lib
-	LIBRARY DESTINATION lib)
+IF(LIBZIP_INSTALL)
+  INSTALL(TARGETS zip
+          ARCHIVE DESTINATION lib
+          LIBRARY DESTINATION lib)
+ENDIF()
 #CREATE_LIBTOOL_FILE(zip lib)

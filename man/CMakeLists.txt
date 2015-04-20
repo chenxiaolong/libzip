@@ -72,36 +72,42 @@ ENDif(CMAKE_SYSTEM_NAME MATCHES BSD)
 SET(MAN_PATH man)
 
 FOREACH(MAN_PAGE ${MAN1_PAGES})
-  INSTALL(FILES ${MAN_PAGE}.${MANFMT} DESTINATION ${MAN_PATH}/man1
-    RENAME ${MAN_PAGE}.1)
+  IF(LIBZIP_INSTALL)
+    INSTALL(FILES ${MAN_PAGE}.${MANFMT} DESTINATION ${MAN_PATH}/man1
+      RENAME ${MAN_PAGE}.1)
+  ENDIF()
 ENDFOREACH(MAN_PAGE ${PROGRAMS})
 FOREACH(MAN_PAGE ${MAN3_PAGES})
-  INSTALL(FILES ${MAN_PAGE}.${MANFMT} DESTINATION ${MAN_PATH}/man3
-    RENAME ${MAN_PAGE}.3)
+  IF(LIBZIP_INSTALL)
+    INSTALL(FILES ${MAN_PAGE}.${MANFMT} DESTINATION ${MAN_PATH}/man3
+      RENAME ${MAN_PAGE}.3)
+  ENDIF()
 ENDFOREACH(MAN_PAGE ${PROGRAMS})
 # TODO: usually symlinks, but I only know how to do this way
-INSTALL(FILES zip_error_clear.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_file_error_clear.3)
-INSTALL(FILES zip_error_get.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_file_error_get.3)
-INSTALL(FILES zip_file_add.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_file_replace.3)
-INSTALL(FILES zip_file_extra_field_delete.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_file_extra_field_delete_by_id.3)
-INSTALL(FILES zip_file_extra_field_get.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_file_extra_field_get_by_id.3)
-INSTALL(FILES zip_file_extra_fields_count.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_file_extra_fields_count_by_id.3)
-INSTALL(FILES zip_fopen.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_fopen_index.3)
-INSTALL(FILES zip_fopen_encrypted.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_fopen_index_encrypted.3)
-INSTALL(FILES zip_add.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_replace.3)
-INSTALL(FILES zip_stat.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_stat_index.3)
-INSTALL(FILES zip_file_strerror.${MANFMT} DESTINATION ${MAN_PATH}/man3
-  RENAME zip_strerror.3)
+IF(LIBZIP_INSTALL)
+  INSTALL(FILES zip_error_clear.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_file_error_clear.3)
+  INSTALL(FILES zip_error_get.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_file_error_get.3)
+  INSTALL(FILES zip_file_add.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_file_replace.3)
+  INSTALL(FILES zip_file_extra_field_delete.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_file_extra_field_delete_by_id.3)
+  INSTALL(FILES zip_file_extra_field_get.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_file_extra_field_get_by_id.3)
+  INSTALL(FILES zip_file_extra_fields_count.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_file_extra_fields_count_by_id.3)
+  INSTALL(FILES zip_fopen.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_fopen_index.3)
+  INSTALL(FILES zip_fopen_encrypted.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_fopen_index_encrypted.3)
+  INSTALL(FILES zip_add.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_replace.3)
+  INSTALL(FILES zip_stat.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_stat_index.3)
+  INSTALL(FILES zip_file_strerror.${MANFMT} DESTINATION ${MAN_PATH}/man3
+    RENAME zip_strerror.3)
+ENDIF()
 
 # custom maintainer targets
 
