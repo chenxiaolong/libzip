@@ -29,6 +29,7 @@ SET(PACKAGE_STRING "${PACKAGE_NAME} ${PACKAGE_VERSION}")
 # Options
 option(LIBZIP_LIBRARY_ONLY "Build the library only" OFF)
 option(LIBZIP_INSTALL "Install the built tools and/or libraries" ON)
+option(LIBZIP_STATIC "Build as a static library" OFF)
 
 # Checks
 
